@@ -1,22 +1,7 @@
-import cv2
+import cv2 # pip install --upgrade opencv-contrib-python
 
 model = 'Face_recognition\opencv_face_detector_uint8.pb'
 config = 'Face_recognition\opencv_face_detector.pbtxt'
-
-def Rotate(src, degrees):
-    if degrees == 90:
-        dst = cv2.transpose(src)
-        dst = cv2.flip(dst, 1)
-
-    elif degrees == 180:
-        dst = cv2.flip(src, -1)
-
-    elif degrees == 270:
-        dst = cv2.transpose(src)
-        dst = cv2.flip(dst, 0)
-    else:
-        dst = None
-    return dst
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
@@ -58,9 +43,6 @@ while True:
 
         label = 'Face: %4.3f' % confidence
         cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
-
-    #frame = Rotate(frame, 90)
-    #frame = cv2.flip(frame, 1)
 
     cv2.imshow('frame', frame)
 
