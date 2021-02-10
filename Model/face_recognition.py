@@ -4,7 +4,7 @@ from tensorflow.keras.applications.resnet50 import preprocess_input
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
 path_dir1 = 'C:/Users/USER/PycharmProjects/Mask_Detection/Dataset/without_mask'
-path_dir2 = 'C:/Users/USER/PycharmProjects/Mask_Detection/Dataset/without_mask'
+path_dir2 = 'C:/Users/USER/PycharmProjects/Mask_Detection/Dataset/with_mask'
 
 file_list1 = os.listdir(path_dir1)
 file_list2 = os.listdir(path_dir2)
