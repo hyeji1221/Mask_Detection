@@ -3,10 +3,10 @@ import numpy as np
 from tensorflow.keras.applications.resnet50 import preprocess_input
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
-path_dir1 = './dataset/without_mask/'
-path_dir2 = './dataset/with_mask/'
+path_dir1 = 'C:/Users/USER/PycharmProjects/Mask_Detection/Dataset/without_mask'
+path_dir2 = '../Dataset/with_mask'
 
-file_list1 = os.listdir(path_dir1)  # path에 존재하는 파일 목록 가져오기
+file_list1 = os.listdir(path_dir1)
 file_list2 = os.listdir(path_dir2)
 
 file_list1_num = len(file_list1)
@@ -15,7 +15,7 @@ file_list2_num = len(file_list2)
 file_num = file_list1_num + file_list2_num
 
 # %% 이미지 전처리
-num = 0;
+num = 0
 all_img = np.float32(np.zeros((file_num, 224, 224, 3)))
 all_label = np.float64(np.zeros((file_num, 1)))
 
