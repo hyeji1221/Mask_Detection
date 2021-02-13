@@ -1,44 +1,33 @@
 import os
 import numpy as np
-from tensorflow.keras.applications.resnet50 import preprocess_input
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
+import cv2
 
-path_dir1 = 'C:/Users/USER/PycharmProjects/Mask_Detection/Dataset/without_mask'
-path_dir2 = 'C:/Users/USER/PycharmProjects/Mask_Detection/Dataset/with_mask'
-
-file_list1 = os.listdir(path_dir1)
-file_list2 = os.listdir(path_dir2)
-
-file_list1_num = len(file_list1)
-file_list2_num = len(file_list2)
-
-file_num = file_list1_num + file_list2_num
-
+imagePath = "../Dataset"
+image_w = 28
+image_h = 28
+categories = ["with_mask", "without_mask"]
+filelistnum1=len(categories[1])
+filelistnum2=len(categories[0])
 # %% 이미지 전처리
-num = 0
-all_img = np.float32(np.zeros((file_num, 224, 224, 3)))
-all_label = np.float64(np.zeros((file_num, 1)))
+label=[0 for i in range(filelistnum1+filelistnum2)]
+num=0
+all_label=[]
+for img_name in categories[1]:
+    img_path =imagePath +'/'+ img_name+'/'
+    for top,dir,f in os.walk(img_path):
+        for filename in f:
+            img=cv2.imread(img_path+filename)
+            img=cv2.resize(img,None,fx=image_w/img.shape[1],fy=image_h/img.shape[0])
+            all_label[num] = 0  # nomask
+            num=num+1
+num=0
+for img_name in categories[0]:
+    img_path = imagePath+'/' + img_name+'/'
+    for top, dir, f in os.walk(img_path):
+        for filename in f:
+            img = cv2.imread(img_path + filename)
+            img = cv2.resize(img, None, fx=image_w / img.shape[1], fy=image_h / img.shape[0])
+            all_label[num] = 1  # mask
+            num = num + 1
 
-for img_name in file_list1:
-    img_path = path_dir1 + img_name
-    img = load_img(img_path, target_size=(224, 224))
-
-    x = img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
-    all_img[num, :, :, :] = x
-
-    all_label[num] = 0  # nomask
-    num = num + 1
-
-for img_name in file_list2:
-    img_path = path_dir2 + img_name
-    img = load_img(img_path, target_size=(224, 224))
-
-    x = img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
-    all_img[num, :, :, :] = x
-
-    all_label[num] = 1  # mask
-    num = num + 1
+np.save("../Dataset.npy",all_label)
