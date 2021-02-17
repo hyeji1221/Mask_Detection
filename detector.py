@@ -71,7 +71,7 @@ while True:
 
     #label = 'Face: %4.3f' % label
     label = 'Face: %s' % label
-    cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
+    cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1, cv2.LINE_AA)
 
     cv2.imshow('frame', frame)
 
