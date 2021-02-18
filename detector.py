@@ -48,13 +48,22 @@ while True:
 
         face = frame[y1:y2, x1:x2] # 크롭
         face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
+        image_w = 28
+        image_h = 28
+        fx = image_w / face.shape[1]
+        fy = image_h / face.shape[0]
+        img = cv2.resize(face, None, fx=image_w / face.shape[1], fy=image_h / face.shape[0])
+        img = (img / 256)
+        img = np.array(img)
+        img = np.expand_dims(img, axis=0)
+        """
         face = cv2.resize(face, (28, 28), 3)
         face = face / 256
         face = img_to_array(face)
         face = preprocess_input(face)
-        face = np.expand_dims(face, axis=0)
-        result = mask_model.predict(face).squeeze()
-        print(mask_model.predict(face).squeeze())
+        face = np.expand_dims(face, axis=0) """
+        result = mask_model.predict(img).squeeze()
+        print(mask_model.predict(img).squeeze())
         mask = result[0]
         withoutMask = result[1]
         #(mask, withoutMask) = model.predict(face)[0]
@@ -64,14 +73,12 @@ while True:
             label = 'Mask %d%%' % (mask * 100)
         else:
             color = (0, 0, 255)
-            label = 'No Mask %d%%' % (withoutMask * 100) 
+            label = 'No Mask %d%%' % (withoutMask * 100)
 
-    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0)) # 사각형 그리기
-    #frame = frame[y1 - int(h/4):y2 + h + int(h/4), x1 - int(w/4):x2 + w + int(w/4)] # 이미지 크롭
+        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0)) # 사각형 그리기
 
-    #label = 'Face: %4.3f' % label
-    label = 'Face: %s' % label
-    cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1, cv2.LINE_AA)
+        label = 'Face: %s' % label
+        cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1, cv2.LINE_AA)
 
     cv2.imshow('frame', frame)
 
