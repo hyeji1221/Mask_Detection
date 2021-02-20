@@ -9,7 +9,9 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 model = 'Face_recognition\opencv_face_detector_uint8.pb'
 config = 'Face_recognition\opencv_face_detector.pbtxt'
-mask_model = tf.keras.models.load_model('./BaeEungi/Final_model.h5') # 임시 모델 사용
+#mask_model = tf.keras.models.load_model('./Final_model.h5')
+#mask_model = tf.keras.models.load_model('./BaeEungi/Final_model.h5') # 임시 모델 사용
+mask_model = tf.keras.models.load_model('./mask_model.h5')
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
@@ -68,14 +70,14 @@ while True:
         withoutMask = result[1]
         #(mask, withoutMask) = model.predict(face)[0]
 
-        if (mask > 0.8):
+        if (mask > withoutMask):
             color = (0, 255, 0)
             label = 'Mask %d%%' % (mask * 100)
         else:
             color = (0, 0, 255)
             label = 'No Mask %d%%' % (withoutMask * 100)
 
-        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0)) # 사각형 그리기
+        cv2.rectangle(frame, (x1, y1), (x2, y2), color) # 사각형 그리기
 
         label = 'Face: %s' % label
         cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1, cv2.LINE_AA)
