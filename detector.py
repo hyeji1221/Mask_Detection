@@ -9,7 +9,7 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 model = 'Face_recognition\opencv_face_detector_uint8.pb'
 config = 'Face_recognition\opencv_face_detector.pbtxt'
-mask_model = tf.keras.models.load_model('./mask_detector.h5') # 임시 모델 사용
+mask_model = tf.keras.models.load_model('./BaeEungi/Final_model.h5') # 임시 모델 사용
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
@@ -48,8 +48,8 @@ while True:
 
         face = frame[y1:y2, x1:x2] # 크롭
         face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
-        image_w = 28
-        image_h = 28
+        image_w = 224
+        image_h = 224
         fx = image_w / face.shape[1]
         fy = image_h / face.shape[0]
         img = cv2.resize(face, None, fx=image_w / face.shape[1], fy=image_h / face.shape[0])
