@@ -68,7 +68,7 @@ while True:
         withoutMask = result[1]
         #(mask, withoutMask) = model.predict(face)[0]
 
-        if (mask > withoutMask):
+        if (mask > 0.8):
             color = (0, 255, 0)
             label = 'Mask %d%%' % (mask * 100)
         else:
