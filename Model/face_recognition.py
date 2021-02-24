@@ -30,4 +30,4 @@ for img_name in categories[0]:
             all_label[num] = 1  # mask
             num = num + 1
 
-np.save("../Dataset.npy",all_label)
+np.save("Dataset.npy", all_label)
