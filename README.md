@@ -14,6 +14,13 @@
 |        [ulimsss(서유림)](https://github.com/ulimsss)        |                                  |
 |    [ParkSuBin01(박수빈)](https://github.com/ParkSuBin01)    |                                  |
 
+### 사용 기술
+
+- Python
+- Tensorflow
+- Keras
+- OpenCV
+
 ### 실행화면
 
 <img src = "https://user-images.githubusercontent.com/59350891/108947848-a03d0600-76a4-11eb-9e27-eb9c39bfbce7.png" width = 35%>
